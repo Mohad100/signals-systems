@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Properties</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+    }
+    .property {
+      background: white;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .property h3 {
+      color: #4CAF50;
+    }
+    .example {
+      background: #e8f5e9;
+      padding: 10px;
+      border-left: 4px solid #4CAF50;
+      margin: 10px 0;
+    }
+    .solution {
+      background: #e3f2fd;
+      padding: 10px;
+      border-left: 4px solid #2196F3;
+      margin: 10px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+    }
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Signals and Systems: System Properties</h1>
+  </header>
+  <main>
+    <section id="properties">
+      <h2>Six Properties of Systems</h2>
+
+      <!-- Stability -->
+      <div class="property">
+        <h3>1. Stability</h3>
+        <p>A system is stable if bounded input produces bounded output (BIBO).</p>
+        <div class="example">
+          <strong>Example:</strong> \( y(t) = x(t) + 2 \)
+        </div>
+        <div class="solution">
+          <strong>Solution:</strong> 
+          <ol>
+            <li>Assume \( x(t) \) is bounded, i.e., \( |x(t)| \leq M \) for some constant \( M \).</li>
+            <li>Then, \( |y(t)| = |x(t) + 2| \leq |x(t)| + 2 \leq M + 2 \).</li>
+            <li>Since \( M + 2 \) is also a constant, \( y(t) \) is bounded.</li>
+            <li>Conclusion: The system is stable.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Invertibility -->
+      <div class="property">
+        <h3>2. Invertibility</h3>
+        <p>A system is invertible if distinct inputs produce distinct outputs.</p>
+        <div class="example">
+          <strong>Example:</strong> \( y(t) = x(t)^2 \)
+        </div>
+        <div class="solution">
+          <strong>Solution:</strong> 
+          <ol>
+            <li>Consider two inputs: \( x_1(t) = 1 \) and \( x_2(t) = -1 \).</li>
+            <li>Compute outputs: \( y_1(t) = (1)^2 = 1 \) and \( y_2(t) = (-1)^2 = 1 \).</li>
+            <li>Since \( y_1(t) = y_2(t) \), the system is not invertible.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Time-Invariance -->
+      <div class="property">
+        <h3>3. Time-Invariance</h3>
+        <p>A system is time-invariant if a time shift in the input results in the same shift in the output.</p>
+        <div class="example">
+          <strong>Example:</strong> \( y(t) = x(t - 2) \)
+        </div>
+        <div class="solution">
+          <strong>Solution:</strong> 
+          <ol>
+            <li>Shift the input by \( t_0 \): \( x(t - t_0) \).</li>
+            <li>Compute the output: \( y(t) = x((t - t_0) - 2) = x(t - t_0 - 2) \).</li>
+            <li>Compare with shifting the original output: \( y(t - t_0) = x((t - t_0) - 2) \).</li>
+            <li>Since both results are the same, the system is time-invariant.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Causality -->
+      <div class="property">
+        <h3>4. Causality</h3>
+        <p>A system is causal if the output depends only on present and past inputs.</p>
+        <div class="example">
+          <strong>Example:</strong> \( y(t) = x(t + 1) \)
+        </div>
+        <div class="solution">
+          <strong>Solution:</strong> 
+          <ol>
+            <li>At time \( t \), the output \( y(t) \) depends on \( x(t + 1) \), which is a future input.</li>
+            <li>Since the output depends on future inputs, the system is not causal.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Linearity -->
+      <div class="property">
+        <h3>5. Linearity</h3>
+        <p>A system is linear if it satisfies superposition and homogeneity.</p>
+        <div class="example">
+          <strong>Example:</strong> \( y(t) = 2x(t) + 3 \)
+        </div>
+        <div class="solution">
+          <strong>Solution:</strong> 
+          <ol>
+            <li>Check homogeneity: Let \( x_1(t) = a \cdot x(t) \). Then, \( y_1(t) = 2a \cdot x(t) + 3 \).</li>
+            <li>Check superposition: Let \( x(t) = x_1(t) + x_2(t) \). Then, \( y(t) = 2(x_1(t) + x_2(t)) + 3 \).</li>
+            <li>Since the constant term \( 3 \) violates both properties, the system is not linear.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Memory -->
+      <div class="property">
+        <h3>6. Memory</h3>
+        <p>A system has memory if the output depends on past or future inputs.</p>
+        <div class="example">
+          <strong>Example:</strong> \( y(t) = x(t - 1) \)
+        </div>
+        <div class="solution">
+          <strong>Solution:</strong> 
+          <ol>
+            <li>At time \( t \), the output \( y(t) \) depends on \( x(t - 1) \), which is a past input.</li>
+            <li>Since the output depends on past inputs, the system has memory.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <a href="page2.html">Next: Odd and Even Signals</a>
+  </footer>
+</body>
+</html>
