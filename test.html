@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signals and Systems</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    /* Tab Styles */
+    .tab {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+
+    .tab button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 20px;
+      transition: 0.3s;
+      font-size: 1rem;
+      color: white;
+      border-radius: 4px;
+      margin: 0 5px;
+    }
+
+    .tab button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tab button.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: bold;
+    }
+
+    /* Main Content Styles */
+    .tabcontent {
+      display: none;
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .property, .example, .solution {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .example {
+      background: #e3f2fd;
+      border-left: 4px solid #2196F3;
+    }
+
+    .solution {
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+    }
+
+    .quiz {
+      margin-top: 1rem;
+    }
+
+    .quiz-question {
+      margin-bottom: 1rem;
+    }
+
+    .quiz-feedback {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+
+    .quiz-explanation {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: #f9f9f9;
+      border-left: 4px solid #4CAF50;
+      display: none;
+    }
+
+    .quiz-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .quiz-button:hover {
+      background-color: #45a049;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #333;
+      color: white;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .tab button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+
+      .tabcontent {
+        padding: 1rem;
+      }
+
+      .property, .example, .solution {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      .tab button {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+
+      .tabcontent {
+        padding: 0.8rem;
+      }
+
+      .property, .example, .solution {
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Signals and Systems</h1>
+    <nav class="tab">
+      <button class="tablinks" onclick="openTab(event, 'SystemProperties')">System Properties</button>
+      <button class="tablinks" onclick="openTab(event, 'OddEvenSignals')">Odd and Even Signals</button>
+      <button class="tablinks" onclick="openTab(event, 'Transformations')">Time and Amplitude Transformations</button>
+    </nav>
+  </header>
+
+  <!-- System Properties Tab -->
+  <div id="SystemProperties" class="tabcontent">
+    <h2>Six Properties of Systems</h2>
+
+    <!-- Stability -->
+    <div class="property">
+      <h3>1. Stability</h3>
+      <p>A system is stable if bounded input produces bounded output (BIBO).</p>
+      <div class="example">
+        <strong>Example:</strong> \( y(t) = x(t) + 2 \)
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Assume \( x(t) \) is bounded, i.e., \( |x(t)| \leq M \) for some constant \( M \).</li>
+          <li>Then, \( |y(t)| = |x(t) + 2| \leq |x(t)| + 2 \leq M + 2 \).</li>
+          <li>Since \( M + 2 \) is also a constant, \( y(t) \) is bounded.</li>
+          <li>Conclusion: The system is stable.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>Is the system \( y(t) = x(t) + 2 \) stable?</p>
+          <input type="radio" name="stability" value="Yes"> Yes<br>
+          <input type="radio" name="stability" value="No"> No<br>
+          <button class="quiz-button" onclick="checkAnswer('stability', 'Yes', 'stability-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="stability-feedback"></div>
+        <div class="quiz-explanation" id="stability-explanation" style="display: none;">
+          The system is stable because \( |y(t)| = |x(t) + 2| \leq |x(t)| + 2 \leq M + 2 \), which is bounded.
+        </div>
+      </div>
+    </div>
+
+    <!-- Invertibility -->
+    <div class="property">
+      <h3>2. Invertibility</h3>
+      <p>A system is invertible if distinct inputs produce distinct outputs.</p>
+      <div class="example">
+        <strong>Example:</strong> \( y(t) = x(t)^2 \)
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Consider two inputs: \( x_1(t) = 1 \) and \( x_2(t) = -1 \).</li>
+          <li>Compute outputs: \( y_1(t) = (1)^2 = 1 \) and \( y_2(t) = (-1)^2 = 1 \).</li>
+          <li>Since \( y_1(t) = y_2(t) \), the system is not invertible.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>Is the system \( y(t) = x(t)^2 \) invertible?</p>
+          <input type="radio" name="invertibility" value="Yes"> Yes<br>
+          <input type="radio" name="invertibility" value="No"> No<br>
+          <button class="quiz-button" onclick="checkAnswer('invertibility', 'No', 'invertibility-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="invertibility-feedback"></div>
+        <div class="quiz-explanation" id="invertibility-explanation" style="display: none;">
+          The system is not invertible because \( x_1(t) = 1 \) and \( x_2(t) = -1 \) produce the same output \( y(t) = 1 \).
+        </div>
+      </div>
+    </div>
+
+    <!-- Time-Invariance -->
+    <div class="property">
+      <h3>3. Time-Invariance</h3>
+      <p>A system is time-invariant if a time shift in the input results in the same shift in the output.</p>
+      <div class="example">
+        <strong>Example:</strong> \( y(t) = x(t - 2) \)
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Shift the input by \( t_0 \): \( x(t - t_0) \).</li>
+          <li>Compute the output: \( y(t) = x((t - t_0) - 2) = x(t - t_0 - 2) \).</li>
+          <li>Compare with shifting the original output: \( y(t - t_0) = x((t - t_0) - 2) \).</li>
+          <li>Since both results are the same, the system is time-invariant.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>Is the system \( y(t) = x(t - 2) \) time-invariant?</p>
+          <input type="radio" name="time-invariance" value="Yes"> Yes<br>
+          <input type="radio" name="time-invariance" value="No"> No<br>
+          <button class="quiz-button" onclick="checkAnswer('time-invariance', 'Yes', 'time-invariance-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="time-invariance-feedback"></div>
+        <div class="quiz-explanation" id="time-invariance-explanation" style="display: none;">
+          The system is time-invariant because \( y(t - t_0) = x((t - t_0) - 2) \), which matches the shifted output.
+        </div>
+      </div>
+    </div>
+
+    <!-- Causality -->
+    <div class="property">
+      <h3>4. Causality</h3>
+      <p>A system is causal if the output depends only on present and past inputs.</p>
+      <div class="example">
+        <strong>Example:</strong> \( y(t) = x(t + 1) \)
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>At time \( t \), the output \( y(t) \) depends on \( x(t + 1) \), which is a future input.</li>
+          <li>Since the output depends on future inputs, the system is not causal.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>Is the system \( y(t) = x(t + 1) \) causal?</p>
+          <input type="radio" name="causality" value="Yes"> Yes<br>
+          <input type="radio" name="causality" value="No"> No<br>
+          <button class="quiz-button" onclick="checkAnswer('causality', 'No', 'causality-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="causality-feedback"></div>
+        <div class="quiz-explanation" id="causality-explanation" style="display: none;">
+          The system is not causal because \( y(t) \) depends on \( x(t + 1) \), which is a future input.
+        </div>
+      </div>
+    </div>
+
+    <!-- Linearity -->
+    <div class="property">
+      <h3>5. Linearity</h3>
+      <p>A system is linear if it satisfies superposition and homogeneity.</p>
+      <div class="example">
+        <strong>Example:</strong> \( y(t) = 2x(t) + 3 \)
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Check homogeneity: Let \( x_1(t) = a \cdot x(t) \). Then, \( y_1(t) = 2a \cdot x(t) + 3 \).</li>
+          <li>Check superposition: Let \( x(t) = x_1(t) + x_2(t) \). Then, \( y(t) = 2(x_1(t) + x_2(t)) + 3 \).</li>
+          <li>Since the constant term \( 3 \) violates both properties, the system is not linear.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>Is the system \( y(t) = 2x(t) + 3 \) linear?</p>
+          <input type="radio" name="linearity" value="Yes"> Yes<br>
+          <input type="radio" name="linearity" value="No"> No<br>
+          <button class="quiz-button" onclick="checkAnswer('linearity', 'No', 'linearity-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="linearity-feedback"></div>
+        <div class="quiz-explanation" id="linearity-explanation" style="display: none;">
+          The system is not linear because the constant term \( 3 \) violates superposition and homogeneity.
+        </div>
+      </div>
+    </div>
+
+    <!-- Memory -->
+    <div class="property">
+      <h3>6. Memory</h3>
+      <p>A system has memory if the output depends on past or future inputs.</p>
+      <div class="example">
+        <strong>Example:</strong> \( y(t) = x(t - 1) \)
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>At time \( t \), the output \( y(t) \) depends on \( x(t - 1) \), which is a past input.</li>
+          <li>Since the output depends on past inputs, the system has memory.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>Does the system \( y(t) = x(t - 1) \) have memory?</p>
+          <input type="radio" name="memory" value="Yes"> Yes<br>
+          <input type="radio" name="memory" value="No"> No<br>
+          <button class="quiz-button" onclick="checkAnswer('memory', 'Yes', 'memory-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="memory-feedback"></div>
+        <div class="quiz-explanation" id="memory-explanation" style="display: none;">
+          The system has memory because \( y(t) \) depends on \( x(t - 1) \), which is a past input.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Odd and Even Signals Tab -->
+  <div id="OddEvenSignals" class="tabcontent">
+    <h2>Odd and Even Signals</h2>
+    <p>A signal \( x(t) \) is:</p>
+    <ul>
+      <li><strong>Even:</strong> \( x(t) = x(-t) \)</li>
+      <li><strong>Odd:</strong> \( x(t) = -x(-t) \)</li>
+    </ul>
+    <p>Any signal can be decomposed into odd and even components:</p>
+    <p>\[
+      x(t) = x_e(t) + x_o(t)
+    \]</p>
+    <p>Where:</p>
+    <p>\[
+      x_e(t) = \frac{x(t) + x(-t)}{2}, \quad x_o(t) = \frac{x(t) - x(-t)}{2}
+    \]</p>
+
+    <div class="example">
+      <h3>Example</h3>
+      <p>Consider the signal \( x(t) = t^2 + t \).</p>
+      <p><strong>Task:</strong> Find the even and odd components of \( x(t) \).</p>
+    </div>
+
+    <div class="solution">
+      <h4>Step 1: Plot the Original Signal</h4>
+      <div class="chart-container">
+        <canvas id="originalChart"></canvas>
+      </div>
+    </div>
+
+    <div class="solution">
+      <h4>Step 2: Compute \( x(-t) \)</h4>
+      <p>Replace \( t \) with \( -t \) in \( x(t) \):</p>
+      <p>\[
+        x(-t) = (-t)^2 + (-t) = t^2 - t
+      \]</p>
+    </div>
+
+    <div class="solution">
+      <h4>Step 3: Compute the Even Component \( x_e(t) \)</h4>
+      <p>Use the formula for the even component:</p>
+      <p>\[
+        x_e(t) = \frac{x(t) + x(-t)}{2}
+      \]</p>
+      <p>Substitute \( x(t) \) and \( x(-t) \):</p>
+      <p>\[
+        x_e(t) = \frac{(t^2 + t) + (t^2 - t)}{2} = \frac{2t^2}{2} = t^2
+      \]</p>
+    </div>
+
+    <div class="solution">
+      <h4>Step 4: Compute the Odd Component \( x_o(t) \)</h4>
+      <p>Use the formula for the odd component:</p>
+      <p>\[
+        x_o(t) = \frac{x(t) - x(-t)}{2}
+      \]</p>
+      <p>Substitute \( x(t) \) and \( x(-t) \):</p>
+      <p>\[
+        x_o(t) = \frac{(t^2 + t) - (t^2 - t)}{2} = \frac{2t}{2} = t
+      \]</p>
+    </div>
+
+    <div class="solution">
+      <h4>Step 5: Verify the Results</h4>
+      <p>Check that \( x(t) = x_e(t) + x_o(t) \):</p>
+      <p>\[
+        x_e(t) + x_o(t) = t^2 + t = x(t)
+      \]</p>
+      <p>The decomposition is correct.</p>
+    </div>
+
+    <div class="solution">
+      <h4>Step 6: Plot the Even and Odd Components</h4>
+      <div class="chart-container">
+        <canvas id="evenChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="oddChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Time and Amplitude Transformations Tab -->
+  <div id="Transformations" class="tabcontent">
+    <h2>Time and Amplitude Transformations</h2>
+    <!-- Time Reversal -->
+    <div class="property">
+      <h3>1. Time Reversal</h3>
+      <p>Time reversal reflects the signal about the vertical axis. Mathematically, it is represented as \( y(t) = x(-t) \).</p>
+      <div class="example">
+        <strong>Example:</strong> Given \( x(t) = t \), find \( y(t) = x(-t) \).
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Replace \( t \) with \( -t \): \( y(t) = x(-t) = -t \).</li>
+          <li>The signal \( x(t) = t \) is reversed to \( y(t) = -t \).</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>What is the result of time reversal for \( x(t) = t^2 \)?</p>
+          <input type="radio" name="reversal" value="t^2"> \( t^2 \)<br>
+          <input type="radio" name="reversal" value="-t^2"> \( -t^2 \)<br>
+          <input type="radio" name="reversal" value="t"> \( t \)<br>
+          <button class="quiz-button" onclick="checkAnswer('reversal', 't^2', 'reversal-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="reversal-feedback"></div>
+        <div class="quiz-explanation" id="reversal-explanation" style="display: none;">
+          Time reversal reflects the signal about the vertical axis, so \( x(-t) = (-t)^2 = t^2 \).
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Shifting -->
+    <div class="property">
+      <h3>2. Time Shifting</h3>
+      <p>Time shifting moves the signal forward or backward in time. Mathematically, it is represented as \( y(t) = x(t - t_0) \), where \( t_0 \) is the shift amount.</p>
+      <div class="example">
+        <strong>Example:</strong> Given \( x(t) = t \), find \( y(t) = x(t - 2) \).
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Replace \( t \) with \( t - 2 \): \( y(t) = x(t - 2) = t - 2 \).</li>
+          <li>The signal \( x(t) = t \) is shifted to the right by 2 units.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>What is the result of time shifting \( x(t) = t^2 \) by \( t_0 = 3 \)?</p>
+          <input type="radio" name="shifting" value="t^2 - 3"> \( t^2 - 3 \)<br>
+          <input type="radio" name="shifting" value="(t - 3)^2"> \( (t - 3)^2 \)<br>
+          <input type="radio" name="shifting" value="t + 3"> \( t + 3 \)<br>
+          <button class="quiz-button" onclick="checkAnswer('shifting', '(t - 3)^2', 'shifting-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="shifting-feedback"></div>
+        <div class="quiz-explanation" id="shifting-explanation" style="display: none;">
+          Time shifting replaces \( t \) with \( t - t_0 \), so \( x(t - 3) = (t - 3)^2 \).
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Scaling -->
+    <div class="property">
+      <h3>3. Time Scaling</h3>
+      <p>Time scaling compresses or expands the signal in time. Mathematically, it is represented as \( y(t) = x(at) \), where \( a \) is the scaling factor.</p>
+      <div class="example">
+        <strong>Example:</strong> Given \( x(t) = t \), find \( y(t) = x(2t) \).
+      </div>
+      <div class="solution">
+        <strong>Solution:</strong> 
+        <ol>
+          <li>Replace \( t \) with \( 2t \): \( y(t) = x(2t) = 2t \).</li>
+          <li>The signal \( x(t) = t \) is compressed by a factor of 2.</li>
+        </ol>
+      </div>
+      <div class="quiz">
+        <div class="quiz-question">
+          <p>What is the result of time scaling \( x(t) = t^2 \) by \( a = 0.5 \)?</p>
+          <input type="radio" name="scaling" value="0.5t^2"> \( 0.5t^2 \)<br>
+          <input type="radio" name="scaling" value="(0.5t)^2"> \( (0.5t)^2 \)<br>
+          <input type="radio" name="scaling" value="t^2 + 0.5"> \( t^2 + 0.5 \)<br>
+          <button class="quiz-button" onclick="checkAnswer('scaling', '(0.5t)^2', 'scaling-explanation')">Submit</button>
+        </div>
+        <div class="quiz-feedback" id="scaling-feedback"></div>
+        <div class="quiz-explanation" id="scaling-explanation" style="display: none;">
+          Time scaling replaces \( t \) with \( at \), so \( x(0.5t) = (0.5t)^2 \).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Signals and Systems</p>
+  </footer>
+
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Default open the first tab
+    document.getElementsByClassName('tablinks')[0].click();
+
+    function checkAnswer(quizName, correctAnswer, explanationId) {
+      const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+      const feedbackElement = document.getElementById(`${quizName}-feedback`);
+      const explanationElement = document.getElementById(explanationId);
+
+      if (selectedAnswer) {
+        if (selectedAnswer.value === correctAnswer) {
+          feedbackElement.textContent = "Correct!";
+          feedbackElement.style.color = "green";
+        } else {
+          feedbackElement.textContent = "Incorrect. Try again!";
+          feedbackElement.style.color = "red";
+        }
+        explanationElement.style.display = "block";
+      } else {
+        feedbackElement.textContent = "Please select an answer.";
+        feedbackElement.style.color = "red";
+        explanationElement.style.display = "none";
+      }
+    }
+
+    // Data for the original signal, even component, and odd component
+    const tValues = [-3, -2, -1, 0, 1, 2, 3];
+    const xValues = tValues.map(t => t ** 2 + t); // Original signal: x(t) = t^2 + t
+    const xeValues = tValues.map(t => t ** 2);   // Even component: x_e(t) = t^2
+    const xoValues = tValues.map(t => t);        // Odd component: x_o(t) = t
+
+    // Plot original signal
+    const originalCtx = document.getElementById('originalChart').getContext('2d');
+    new Chart(originalCtx, {
+      type: 'line',
+      data: {
+        labels: tValues,
+        datasets: [{
+          label: 'Original Signal \( x(t) = t^2 + t \)',
+          data: xValues,
+          borderColor: 'blue',
+          fill: false,
+        }]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 't' } },
+          y: { title: { display: true, text: 'x(t)' } }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    });
+
+    // Plot even component
+    const evenCtx = document.getElementById('evenChart').getContext('2d');
+    new Chart(evenCtx, {
+      type: 'line',
+      data: {
+        labels: tValues,
+        datasets: [{
+          label: 'Even Component \( x_e(t) = t^2 \)',
+          data: xeValues,
+          borderColor: 'green',
+          fill: false,
+        }]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 't' } },
+          y: { title: { display: true, text: 'x_e(t)' } }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    });
+
+    // Plot odd component
+    const oddCtx = document.getElementById('oddChart').getContext('2d');
+    new Chart(oddCtx, {
+      type: 'line',
+      data: {
+        labels: tValues,
+        datasets: [{
+          label: 'Odd Component \( x_o(t) = t \)',
+          data: xoValues,
+          borderColor: 'red',
+          fill: false,
+        }]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 't' } },
+          y: { title: { display: true, text: 'x_o(t)' } }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    });
+  </script>
+</body>
+</html>
