@@ -8,125 +8,132 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <style>
-    /* General Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
+<style>
+  /* General Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  header {
+    background: #4CAF50;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    width: 100%; /* Ensure header spans full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  main {
+    padding: 1.5rem; /* Consistent gap on all sides */
+    max-width: 1200px; /* Limit main content width for larger screens */
+    margin: 0 auto; /* Center main content */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; /* Consistent gap between elements */
+  }
+
+  h1, h2, h3, h4 {
+    margin: 0.5rem 0;
+  }
+
+  .property {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .property h3 {
+    color: #4CAF50;
+  }
+
+  .example {
+    background: #e8f5e9;
+    padding: 1rem;
+    border-left: 4px solid #4CAF50;
+    margin: 0; /* Remove margin to rely on grid gap */
+  }
+
+  .solution {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-left: 4px solid #2196F3;
+    margin: 0; /* Remove margin to rely on grid gap */
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: #333;
+    color: white;
+    width: 100%; /* Ensure footer spans full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  footer a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 1.5rem;
     }
 
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
+    h2 {
+      font-size: 1.3rem;
     }
 
-    main {
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    h1, h2, h3, h4 {
-      margin: 0.5rem 0;
+    h3 {
+      font-size: 1.1rem;
     }
 
     .property {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .property h3 {
-      color: #4CAF50;
-    }
-
-    .example {
-      background: #e8f5e9;
       padding: 1rem;
-      border-left: 4px solid #4CAF50;
-      margin: 1rem 0;
     }
 
-    .solution {
-      background: #e3f2fd;
-      padding: 1rem;
-      border-left: 4px solid #2196F3;
-      margin: 1rem 0;
+    .example, .solution {
+      padding: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.3rem;
     }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #333;
-      color: white;
+    h2 {
+      font-size: 1.2rem;
     }
 
-    footer a {
-      color: #4CAF50;
-      text-decoration: none;
+    h3 {
+      font-size: 1rem;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .property {
+      padding: 0.8rem;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-
-      h2 {
-        font-size: 1.3rem;
-      }
-
-      h3 {
-        font-size: 1.1rem;
-      }
-
-      .property {
-        padding: 1rem;
-      }
-
-      .example, .solution {
-        padding: 0.8rem;
-      }
+    .example, .solution {
+      padding: 0.6rem;
     }
 
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.3rem;
-      }
-
-      h2 {
-        font-size: 1.2rem;
-      }
-
-      h3 {
-        font-size: 1rem;
-      }
-
-      .property {
-        padding: 0.8rem;
-      }
-
-      .example, .solution {
-        padding: 0.6rem;
-      }
-
-      main {
-        grid-template-columns: 1fr; /* Single column for mobile */
-      }
+    main {
+      grid-template-columns: 1fr; /* Single column for mobile */
+      padding: 1rem; /* Smaller padding for mobile */
     }
-  </style>
+  }
+</style>
 </head>
 <body>
   <header>
