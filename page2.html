@@ -7,146 +7,146 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <style>
-    /* General Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
+ <style>
+  /* General Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  header {
+    background: #4CAF50;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    width: 100%; /* Ensure header spans full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  main {
+    padding: 1.5rem; /* Consistent gap on all sides */
+    max-width: 1200px; /* Limit main content width for larger screens */
+    margin: 0 auto; /* Center main content */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; /* Consistent gap between elements */
+  }
+
+  h1, h2, h3, h4 {
+    margin: 0.5rem 0;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+  }
+
+  .example {
+    background: #e8f5e9;
+    padding: 1rem;
+    border-left: 4px solid #4CAF50;
+    margin: 0; /* Remove margin to rely on grid gap */
+  }
+
+  .solution {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-left: 4px solid #2196F3;
+    margin: 0; /* Remove margin to rely on grid gap */
+  }
+
+  .chart-container {
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: #333;
+    color: white;
+    width: 100%; /* Ensure footer spans full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  footer a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 1.5rem;
     }
 
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-      width: 100%; /* Ensure header spans full width */
-      box-sizing: border-box; /* Include padding in width calculation */
+    h2 {
+      font-size: 1.3rem;
     }
 
-    main {
-      padding: 1.5rem; /* Consistent gap on all sides */
-      max-width: 1200px; /* Limit main content width for larger screens */
-      margin: 0 auto; /* Center main content */
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem; /* Consistent gap between elements */
+    h3 {
+      font-size: 1.1rem;
     }
 
-    h1, h2, h3, h4 {
-      margin: 0.5rem 0;
+    h4 {
+      font-size: 1rem;
     }
 
-    ul {
-      padding-left: 1.5rem;
-    }
-
-    .example {
-      background: #e8f5e9;
-      padding: 1rem;
-      border-left: 4px solid #4CAF50;
-      margin: 0; /* Remove margin to rely on grid gap */
-    }
-
-    .solution {
-      background: #e3f2fd;
-      padding: 1rem;
-      border-left: 4px solid #2196F3;
-      margin: 0; /* Remove margin to rely on grid gap */
+    .example, .solution {
+      padding: 0.8rem;
     }
 
     .chart-container {
-      margin: 1.5rem 0;
-      width: 100%;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 1rem 0;
     }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #333;
-      color: white;
-      width: 100%; /* Ensure footer spans full width */
-      box-sizing: border-box; /* Include padding in width calculation */
+    .chart-container canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.3rem;
     }
 
-    footer a {
-      color: #4CAF50;
-      text-decoration: none;
+    h2 {
+      font-size: 1.2rem;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    h3 {
+      font-size: 1rem;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-
-      h2 {
-        font-size: 1.3rem;
-      }
-
-      h3 {
-        font-size: 1.1rem;
-      }
-
-      h4 {
-        font-size: 1rem;
-      }
-
-      .example, .solution {
-        padding: 0.8rem;
-      }
-
-      .chart-container {
-        margin: 1rem 0;
-      }
-
-      .chart-container canvas {
-        width: 100% !important;
-        height: auto !important;
-      }
+    h4 {
+      font-size: 0.9rem;
     }
 
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.3rem;
-      }
-
-      h2 {
-        font-size: 1.2rem;
-      }
-
-      h3 {
-        font-size: 1rem;
-      }
-
-      h4 {
-        font-size: 0.9rem;
-      }
-
-      .example, .solution {
-        padding: 0.6rem;
-      }
-
-      ul {
-        padding-left: 1rem;
-      }
-
-      main {
-        grid-template-columns: 1fr; /* Single column for mobile */
-        padding: 1rem; /* Smaller padding for mobile */
-      }
+    .example, .solution {
+      padding: 0.6rem;
     }
-  </style>
+
+    ul {
+      padding-left: 1rem;
+    }
+
+    main {
+      grid-template-columns: 1fr; /* Single column for mobile */
+      padding: 1rem; /* Smaller padding for mobile */
+    }
+  }
+</style>
 </head>
 <body>
   <header>
