@@ -10,7 +10,7 @@
   <style>
     /* General Styles */
     body {
-      font-family: "Trebuchet MS", Tahoma, sans-serif;
+      font-family: "Trebuchet MS", sans-serif;
       background-color: #f4f4f9;
       color: #333;
       margin: 0;
@@ -146,29 +146,10 @@
       text-decoration: underline;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-
-      .tab button {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-      }
-
-      .tabcontent {
-        padding: 1rem;
-      }
-
-      .property, .example, .solution {
-        padding: 1rem;
-      }
-    }
-
+    /* Responsive Design for Mobile */
     @media (max-width: 480px) {
       header h1 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
       }
 
       .tab button {
@@ -182,6 +163,32 @@
 
       .property, .example, .solution {
         padding: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .quiz-question {
+        font-size: 0.9rem;
+      }
+
+      .quiz-button {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .quiz-explanation {
+        font-size: 0.9rem;
+      }
+
+      /* Ensure math expressions don't overflow */
+      .MathJax {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* Adjust chart containers for mobile */
+      .chart-container {
+        width: 100%;
+        max-width: 100%;
       }
     }
   </style>
